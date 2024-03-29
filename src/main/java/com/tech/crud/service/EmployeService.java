@@ -72,7 +72,8 @@ public class EmployeService {
 			List<EmployeModel> models = emprepo.findAll();
 			response = models.stream().map(this::mapModelToDto).collect(Collectors.toList());
 		} catch (Exception e) {
-			return null;
+			e.printStackTrace();
+			return new ArrayList<>();
 		}
 		return response;
 	}

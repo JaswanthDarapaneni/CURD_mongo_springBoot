@@ -6,7 +6,6 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tech.crud.dto.employeedto;
 import com.tech.crud.service.EmployeService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
@@ -29,8 +31,8 @@ public class EmployeeController {
 
 	@PostMapping("/create")
 	@ResponseStatus(HttpStatus.CREATED)
-	public String createEmployee(@RequestBody employeedto emp) {
-
+	public String createEmployee(@Valid @RequestBody employeedto emp) {
+//return "im calling";
 		return empService.createEmployee(emp);
 	}
 

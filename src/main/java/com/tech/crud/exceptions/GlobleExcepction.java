@@ -8,6 +8,8 @@ import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -25,6 +27,18 @@ public class GlobleExcepction {
 		System.out.println(e.getMessage());
 		responce.put("error Msg", e.getMessage());
 		return responce;
+	}
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public Map<String, String> MethodArgumentNotValidException(MethodArgumentNotValidException e) {
+		Map<String, String> res =  new HashMap<>();
+	    e.getBindingResult().getAllErrors().forEach(t ->{
+	    	String fieldName = ((FieldError) t).getField() ;
+	    	String errorMsg = t.getDefaultMessage();
+	    	res.put(fieldName, errorMsg);
+	    });
+	    return res;
 	}
 	
 	

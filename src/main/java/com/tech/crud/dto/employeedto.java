@@ -3,19 +3,30 @@ package com.tech.crud.dto;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.tech.crud.model.DepartmentModel;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
 public class employeedto {
-
+    
 	private String id;
+	@NotBlank(message = "Name should not be blank")
+	@Length(min = 3,message = "Name required min 3 leters")
 	private String name;
+	@NotBlank(message = "Location should not be blank")
 	private String location;
+	@NotNull(message = "Salary required should not be blank")
+	@Min(value = 3, message = "Salary required should not be blank")
 	private BigDecimal salery;
+	
 	private List<DepartmentModel> departments;
 
 	public employeedto() {

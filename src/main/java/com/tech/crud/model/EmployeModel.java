@@ -21,6 +21,7 @@ public class EmployeModel {
 	@Id
 	private String id;
 	@Field(name = "employee_name")
+	
 	private String name;
 	private String location;
 	private BigDecimal salery;
